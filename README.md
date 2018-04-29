@@ -32,6 +32,8 @@ const (
 
 func main() {
 	client := authing.NewClient(clientID, appSecret, false)
+	// Enable debug info for graphql client, just comment it if you want to disable the debug info
+	client.Client.Log = func(s string) { log.Println(s) }
 
 	// >>>Graphql Mutation: register
 	input := authing.UserRegisterInput{
@@ -48,6 +50,8 @@ func main() {
 	}
 
 	// oauthClient := authing.NewOauthClient(clientID, appSecret, false)
+	// Enable debug info for graphql client, just comment it if you want to disable the debug info
+	// oauthClient.Client.Log = func(s string) { log.Println(s) }
 
 	// >>>>Graphql Query: Read OAuth List
 	// readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
