@@ -14,7 +14,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kelvinji2009/authing-go-sdk"
+	"github.com/Authing/authing-go-sdk"
 	"github.com/kelvinji2009/graphql"
 )
 
