@@ -11,7 +11,7 @@ Make sure you have a working Go environment. To install `authing-go-sdk`, simply
 go get github.com/Authing/graphql
 ```
 
-## Qucik Guide
+## Quick Guide
 
 ```go
 package main
