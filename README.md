@@ -1,10 +1,17 @@
 # authing-go-sdk
 
-### What is Authing
+## What is Authing
 
 [Authing](https://authing.cn/) is an IDaaS which is created by Ivy.
 
-### Qucik Guide
+## Installation
+Make sure you have a working Go environment. To install `authing-go-sdk`, simply run:
+
+```shell
+go get github.com/Authing/graphql
+```
+
+## Qucik Guide
 
 ```go
 package main
@@ -68,13 +75,13 @@ func printJSON(v interface{}) {
 }
 ```
 
-### TODO
+## TODO
 
 - [ ] More detailed API usages and documents
 - [ ] Travis CI support
 
 
-### Thanks
+## Thanks
 [Go GraphQL Client](https://github.com/shurcooL/graphql)
 
 [Simple low-level GraphQL HTTP client for Go](https://github.com/machinebox/graphql)
