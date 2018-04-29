@@ -71,9 +71,11 @@ func printJSON(v interface{}) {
 ### TODO
 
 - [ ] More detailed API usages and documents
+- [ ] Travis CI support
 
 
 ### Thanks
 [Go GraphQL Client](https://github.com/shurcooL/graphql)
+
 [Simple low-level GraphQL HTTP client for Go](https://github.com/machinebox/graphql)
 
