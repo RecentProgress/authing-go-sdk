@@ -186,6 +186,15 @@ removeUsersInput := authing.RemoveUsersInput{
 	// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
 }
 
+// UserID Validation
+for i, id := range removeUsersInput.IDs {
+	re := regexp.MustCompile("^[0-9a-fA-F]{24}$")
+
+	if !re.MatchString(string(id)) {
+		log.Fatalf(">>>> user ID is invalid ,index: %d, id: %s", i, id)
+	}
+}
+
 m, err := client.RemoveUsers(&removeUsersInput)
 if err != nil {
 	log.Println(">>>>Remove users failed: " + err.Error())

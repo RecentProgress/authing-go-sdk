@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"regexp"
 
 	authing "github.com/Authing/authing-go-sdk"
 	"github.com/kelvinji2009/graphql"
@@ -100,6 +101,15 @@ func main() {
 		RegisterInClient: graphql.String(clientID),
 		// Operator should be your `Authing.cn` account ID
 		// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
+	}
+
+	// UserID Validation
+	for i, id := range removeUsersInput.IDs {
+		re := regexp.MustCompile("^[0-9a-fA-F]{24}$")
+
+		if !re.MatchString(string(id)) {
+			log.Fatalf(">>>> user ID is invalid ,index: %d, id: %s", i, id)
+		}
 	}
 
 	m, err := client.RemoveUsers(&removeUsersInput)
