@@ -19,7 +19,7 @@ func main() {
 	// Enable debug info for graphql client, just comment it if you want to disable the debug info
 	client.Client.Log = func(s string) { log.Println(s) }
 
-	// >>>Graphql Mutation: register
+	// >>>>Graphql Mutation: register
 	// input := authing.UserRegisterInput{
 	// 	Email:            graphql.String("kelvinji2009@gmail.com"),
 	// 	Password:         graphql.String("password"),
@@ -35,7 +35,7 @@ func main() {
 
 	//------------------------------------------------------------------------------------
 
-	// >>>Graphql Mutation: login
+	// >>>>Graphql Mutation: login
 	// loginInput := authing.UserLoginInput{
 	// 	Email:            graphql.String("kelvinji2009@gmail.com"),
 	// 	Password:         graphql.String("password!"),
@@ -95,36 +95,37 @@ func main() {
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Mutation: removeUsers
-	// removeUsersInput := authing.RemoveUsersInput{
-	// 	IDs:              []graphql.String{"111", "222"}, // NOTE: Please use your real user IDs
-	// 	RegisterInClient: graphql.String(clientID),
-	// 	Operator:         graphql.String("5adb75be3055230001023b20"), // FIXME: It's your Authing.cn account ID
-	// }
+	removeUsersInput := authing.RemoveUsersInput{
+		IDs:              []graphql.String{"5ae3d830f0db4b000117a95f"}, // NOTE: Please use your real user IDs
+		RegisterInClient: graphql.String(clientID),
+		// Operator should be your `Authing.cn` account ID
+		// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
+	}
 
-	// m, err := client.RemoveUsers(&removeUsersInput)
-	// if err != nil {
-	// 	log.Println(">>>>Remove users failed: " + err.Error())
-	// } else {
-	// 	printJSON(m)
-	// }
+	m, err := client.RemoveUsers(&removeUsersInput)
+	if err != nil {
+		log.Println(">>>>Remove users failed: " + err.Error())
+	} else {
+		printJSON(m)
+	}
 
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Mutation: updateUser
-	userUpdateInput := authing.UserUpdateInput{
-		ID:               graphql.String("5ae3d830f0db4b000117a95e"), // Mandotory in struct
-		Username:         graphql.String("kelvinji2009x"),
-		Nickname:         graphql.String("Sicario13th"),
-		Phone:            graphql.String("18665308994"),
-		RegisterInClient: graphql.String(clientID),
-	}
+	// userUpdateInput := authing.UserUpdateInput{
+	// 	ID:               graphql.String("5ae3d830f0db4b000117a95e"), // Mandotory in struct
+	// 	Username:         graphql.String("kelvinji2009x"),
+	// 	Nickname:         graphql.String("Sicario13th"),
+	// 	Phone:            graphql.String("18665308994"),
+	// 	RegisterInClient: graphql.String(clientID),
+	// }
 
-	m, err := client.UpdateUser(&userUpdateInput)
-	if err != nil {
-		log.Println(">>>>Update user failed: " + err.Error())
-	} else {
-		printJSON(m)
-	}
+	// m, err := client.UpdateUser(&userUpdateInput)
+	// if err != nil {
+	// 	log.Println(">>>>Update user failed: " + err.Error())
+	// } else {
+	// 	printJSON(m)
+	// }
 
 	//------------------------------------------------------------------------------------
 

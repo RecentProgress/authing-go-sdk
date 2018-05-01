@@ -182,7 +182,8 @@ if err != nil {
 removeUsersInput := authing.RemoveUsersInput{
 	IDs:              []graphql.String{"111", "222"}, // NOTE: Please use your real user IDs
 	RegisterInClient: graphql.String(clientID),
-	Operator:         graphql.String("5adb75be3055230001023b20"), // FIXME: It's your Authing.cn account ID
+	// Operator should be your `Authing.cn` account ID
+	// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
 }
 
 m, err := client.RemoveUsers(&removeUsersInput)

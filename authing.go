@@ -406,7 +406,8 @@ func (c *Client) Users(parameter *UsersQueryParameter) (UsersQuery, error) {
 type RemoveUsersInput struct {
 	IDs              []graphql.String `json:"ids"`
 	RegisterInClient graphql.String   `json:"registerInClient"`
-	Operator         graphql.String   `json:"operator"` // FIXME: Mandatory
+	// Operator should be your `Authing.cn` account ID
+	Operator graphql.String `json:"operator"` // no more Mandatory in the latest version
 }
 
 // RemoveUsersMutation remove users mutation
