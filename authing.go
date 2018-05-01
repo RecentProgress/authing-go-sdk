@@ -443,7 +443,7 @@ func (c *Client) RemoveUsers(input *RemoveUsersInput) (RemoveUsersMutation, erro
 // UserUpdateInput user update input parameters needed to fill
 // TODO: no need all fields
 type UserUpdateInput struct {
-	ID            graphql.String  `json:"_id"`
+	ID            graphql.String  `json:"_id"` // Mandotory in struct
 	Email         graphql.String  `json:"email,omitempty"`
 	Unionid       graphql.String  `json:"unionid,omitempty"`
 	EmailVerified graphql.Boolean `json:"emailVerified,omitempty"`

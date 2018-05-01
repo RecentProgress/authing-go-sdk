@@ -197,6 +197,7 @@ if err != nil {
 
 ```go
 userUpdateInput := authing.UserUpdateInput{
+	ID:               graphql.String("5ae3d830f0db4b000117a95e"), // Mandotory in struct
 	Username:         graphql.String("kelvinji2009x"),
 	Nickname:         graphql.String("Sicario13th"),
 	Phone:            graphql.String("18665308994"),
