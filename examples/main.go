@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Authing/authing-go-sdk"
+	authing "github.com/Authing/authing-go-sdk"
 	"github.com/kelvinji2009/graphql"
 )
 
@@ -15,9 +15,9 @@ const (
 )
 
 func main() {
-	// client := authing.NewClient(clientID, appSecret, false)
+	client := authing.NewClient(clientID, appSecret, false)
 	// Enable debug info for graphql client, just comment it if you want to disable the debug info
-	// client.Client.Log = func(s string) { log.Println(s) }
+	client.Client.Log = func(s string) { log.Println(s) }
 
 	// >>>Graphql Mutation: register
 	// input := authing.UserRegisterInput{
@@ -111,19 +111,20 @@ func main() {
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Mutation: updateUser
-	// userUpdateInput := authing.UserUpdateInput{
-	// 	Username:         graphql.String("kelvinji2009x"),
-	// 	Nickname:         graphql.String("Sicario13th"),
-	// 	Phone:            graphql.String("18665308994"),
-	// 	RegisterInClient: graphql.String(clientID),
-	// }
+	userUpdateInput := authing.UserUpdateInput{
+		ID:               graphql.String("5ae3d830f0db4b000117a95e"),
+		Username:         graphql.String("kelvinji2009x"),
+		Nickname:         graphql.String("Sicario13th"),
+		Phone:            graphql.String("18665308994"),
+		RegisterInClient: graphql.String(clientID),
+	}
 
-	// m, err := client.UpdateUser(&userUpdateInput)
-	// if err != nil {
-	// 	log.Println(">>>>Update user failed: " + err.Error())
-	// } else {
-	// 	printJSON(m)
-	// }
+	m, err := client.UpdateUser(&userUpdateInput)
+	if err != nil {
+		log.Println(">>>>Update user failed: " + err.Error())
+	} else {
+		printJSON(m)
+	}
 
 	//------------------------------------------------------------------------------------
 
@@ -182,22 +183,22 @@ func main() {
 
 	//------------------------------------------------------------------------------------
 
-	oauthClient := authing.NewOauthClient(clientID, appSecret, false)
-	// Enable debug info for graphql client, just comment it if you want to disable the debug info
-	oauthClient.Client.Log = func(s string) { log.Println(s) }
+	// oauthClient := authing.NewOauthClient(clientID, appSecret, false)
+	// // Enable debug info for graphql client, just comment it if you want to disable the debug info
+	// oauthClient.Client.Log = func(s string) { log.Println(s) }
 
-	// >>>>Graphql Query: Read OAuth List
-	readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
-		ClientID:   graphql.String(clientID),
-		DontGetURL: graphql.Boolean(false),
-	}
+	// // >>>>Graphql Query: Read OAuth List
+	// readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
+	// 	ClientID:   graphql.String(clientID),
+	// 	DontGetURL: graphql.Boolean(false),
+	// }
 
-	q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
-	if err != nil {
-		log.Println(">>>>Read OAuth List failed: " + err.Error())
-	} else {
-		printJSON(q)
-	}
+	// q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
+	// if err != nil {
+	// 	log.Println(">>>>Read OAuth List failed: " + err.Error())
+	// } else {
+	// 	printJSON(q)
+	// }
 
 }
 

@@ -443,6 +443,7 @@ func (c *Client) RemoveUsers(input *RemoveUsersInput) (RemoveUsersMutation, erro
 // UserUpdateInput user update input parameters needed to fill
 // TODO: no need all fields
 type UserUpdateInput struct {
+	ID            graphql.String  `json:"_id"`
 	Email         graphql.String  `json:"email,omitempty"`
 	Unionid       graphql.String  `json:"unionid,omitempty"`
 	EmailVerified graphql.Boolean `json:"emailVerified,omitempty"`
@@ -495,6 +496,7 @@ func (c *Client) UpdateUser(input *UserUpdateInput) (UpdateUserMutation, error) 
 
 	variables := map[string]interface{}{
 		"options": UserUpdateInput{
+			ID:               input.ID,
 			Username:         input.Username,
 			Nickname:         input.Nickname,
 			Phone:            input.Phone,
