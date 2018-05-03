@@ -2,11 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"regexp"
 
 	authing "github.com/Authing/authing-go-sdk"
+	prettyjson "github.com/hokaccha/go-prettyjson"
 	"github.com/kelvinji2009/graphql"
 )
 
@@ -18,7 +20,11 @@ const (
 func main() {
 	client := authing.NewClient(clientID, appSecret, false)
 	// Enable debug info for graphql client, just comment it if you want to disable the debug info
-	client.Client.Log = func(s string) { log.Println(s) }
+	client.Client.Log = func(s string) {
+		b := []byte(s)
+		_b, _ := prettyjson.Format(b)
+		fmt.Println(string(_b))
+	}
 
 	// >>>>Graphql Mutation: register
 	// input := authing.UserRegisterInput{
@@ -196,7 +202,11 @@ func main() {
 
 	// oauthClient := authing.NewOauthClient(clientID, appSecret, false)
 	// // Enable debug info for graphql client, just comment it if you want to disable the debug info
-	// oauthClient.Client.Log = func(s string) { log.Println(s) }
+	// oauthClient.Client.Log = func(s string) {
+	// 	b := []byte(s)
+	// 	_b, _ := prettyjson.Format(b)
+	// 	fmt.Println(string(_b))
+	// }
 
 	// // >>>>Graphql Query: Read OAuth List
 	// readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
