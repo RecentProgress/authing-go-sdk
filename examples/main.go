@@ -18,12 +18,13 @@ const (
 )
 
 func main() {
+	// ---User Endpoint
 	client := authing.NewClient(clientID, appSecret, false)
 	// Enable debug info for graphql client, just comment it if you want to disable the debug info
 	client.Client.Log = func(s string) {
 		b := []byte(s)
-		_b, _ := prettyjson.Format(b)
-		fmt.Println(string(_b))
+		pj, _ := prettyjson.Format(b)
+		fmt.Println(string(pj))
 	}
 
 	// >>>>Graphql Mutation: register
@@ -200,26 +201,27 @@ func main() {
 
 	//------------------------------------------------------------------------------------
 
-	// oauthClient := authing.NewOauthClient(clientID, appSecret, false)
-	// // Enable debug info for graphql client, just comment it if you want to disable the debug info
-	// oauthClient.Client.Log = func(s string) {
-	// 	b := []byte(s)
-	// 	_b, _ := prettyjson.Format(b)
-	// 	fmt.Println(string(_b))
-	// }
+	// ---OAuth Endpoint
+	oauthClient := authing.NewOauthClient(clientID, appSecret, false)
+	// Enable debug info for graphql client, just comment it if you want to disable the debug info
+	oauthClient.Client.Log = func(s string) {
+		b := []byte(s)
+		pj, _ := prettyjson.Format(b)
+		fmt.Println(string(pj))
+	}
 
-	// // >>>>Graphql Query: Read OAuth List
-	// readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
-	// 	ClientID:   graphql.String(clientID),
-	// 	DontGetURL: graphql.Boolean(false),
-	// }
+	// >>>>Graphql Query: Read OAuth List
+	readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
+		ClientID:   graphql.String(clientID),
+		DontGetURL: graphql.Boolean(false),
+	}
 
-	// q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
-	// if err != nil {
-	// 	log.Println(">>>>Read OAuth List failed: " + err.Error())
-	// } else {
-	// 	printJSON(q)
-	// }
+	q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
+	if err != nil {
+		log.Println(">>>>Read OAuth List failed: " + err.Error())
+	} else {
+		printJSON(q)
+	}
 
 }
 
