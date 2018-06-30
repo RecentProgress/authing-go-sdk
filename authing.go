@@ -278,20 +278,29 @@ func (c *Client) Login(input *UserLoginInput) (UserLoginMutation, error) {
 
 //------------------------------------------------------------------------------------
 
+// CheckLoginStatusQueryParameter check login status query parameters needed to fill
+type CheckLoginStatusQueryParameter struct {
+	Token graphql.String `json:"token"`
+}
+
 // CheckLoginStatusQuery check the login status query
 type CheckLoginStatusQuery struct {
 	CheckLoginStatus struct {
 		Message graphql.String
 		Code    graphql.Int
 		Status  graphql.Boolean
-	} `graphql:"checkLoginStatus"`
+	} `graphql:"checkLoginStatus(token: $token)"`
 }
 
 // CheckLoginStatus check the user login status
-func (c *Client) CheckLoginStatus() (CheckLoginStatusQuery, error) {
+func (c *Client) CheckLoginStatus(parameter *CheckLoginStatusQueryParameter) (CheckLoginStatusQuery, error) {
 	var q CheckLoginStatusQuery
 
-	err := c.Client.Query(context.Background(), &q, nil)
+	variables := map[string]interface{}{
+		"token": parameter.Token,
+	}
+
+	err := c.Client.Query(context.Background(), &q, variables)
 	if err != nil {
 		// log.Println("Check login status failed: " + err.Error())
 		return q, err

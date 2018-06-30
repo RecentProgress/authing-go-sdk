@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"regexp"
 
 	authing "github.com/Authing/authing-go-sdk"
 	prettyjson "github.com/hokaccha/go-prettyjson"
@@ -44,30 +43,35 @@ func main() {
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Mutation: login
-	// loginInput := authing.UserLoginInput{
-	// 	Email:            graphql.String("kelvinji2009@gmail.com"),
-	// 	Password:         graphql.String("password!"),
-	// 	RegisterInClient: graphql.String(clientID),
-	// }
+	loginInput := authing.UserLoginInput{
+		Email:            graphql.String("kelvinji2009@gmail.com"),
+		Password:         graphql.String("password!"),
+		RegisterInClient: graphql.String(clientID),
+	}
 
-	// m, err := client.Login(&loginInput)
-	// if err != nil {
-	// 	log.Println(">>>>Login failed: " + err.Error())
-	// } else {
-	// 	printJSON(m)
-	// }
+	m, err := client.Login(&loginInput)
+	if err != nil {
+		log.Println(">>>>Login failed: " + err.Error())
+	} else {
+		printJSON(m)
+	}
 
 	// userID := string(m.Login.ID) //5ae3d830f0db4b000117a95e
+	token := string(m.Login.Token)
 
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Query: checkLoginStatus
-	// q, err := client.CheckLoginStatus()
-	// if err != nil {
-	// 	log.Println(">>>>Check login status failed: " + err.Error())
-	// } else {
-	// 	printJSON(q)
-	// }
+	p := authing.CheckLoginStatusQueryParameter{
+		Token: graphql.String(token),
+	}
+
+	q, err := client.CheckLoginStatus(&p)
+	if err != nil {
+		log.Println(">>>>Check login status failed: " + err.Error())
+	} else {
+		printJSON(q)
+	}
 
 	//------------------------------------------------------------------------------------
 
@@ -103,28 +107,28 @@ func main() {
 	//------------------------------------------------------------------------------------
 
 	// >>>>Graphql Mutation: removeUsers
-	removeUsersInput := authing.RemoveUsersInput{
-		IDs:              []graphql.String{"5ae3d830f0db4b000117a95f"}, // NOTE: Please use your real user IDs
-		RegisterInClient: graphql.String(clientID),
-		// Operator should be your `Authing.cn` account ID
-		// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
-	}
+	// removeUsersInput := authing.RemoveUsersInput{
+	// 	IDs:              []graphql.String{"5ae3d830f0db4b000117a95f"}, // NOTE: Please use your real user IDs
+	// 	RegisterInClient: graphql.String(clientID),
+	// 	// Operator should be your `Authing.cn` account ID
+	// 	// Operator:         graphql.String("5adb75be3055230001023b20"), // no more needed
+	// }
 
 	// UserID Validation
-	for i, id := range removeUsersInput.IDs {
-		re := regexp.MustCompile("^[0-9a-fA-F]{24}$")
+	// for i, id := range removeUsersInput.IDs {
+	// 	re := regexp.MustCompile("^[0-9a-fA-F]{24}$")
 
-		if !re.MatchString(string(id)) {
-			log.Fatalf(">>>> user ID is invalid ,index: %d, id: %s", i, id)
-		}
-	}
+	// 	if !re.MatchString(string(id)) {
+	// 		log.Fatalf(">>>> user ID is invalid ,index: %d, id: %s", i, id)
+	// 	}
+	// }
 
-	m, err := client.RemoveUsers(&removeUsersInput)
-	if err != nil {
-		log.Println(">>>>Remove users failed: " + err.Error())
-	} else {
-		printJSON(m)
-	}
+	// m, err := client.RemoveUsers(&removeUsersInput)
+	// if err != nil {
+	// 	log.Println(">>>>Remove users failed: " + err.Error())
+	// } else {
+	// 	printJSON(m)
+	// }
 
 	//------------------------------------------------------------------------------------
 
@@ -202,26 +206,26 @@ func main() {
 	//------------------------------------------------------------------------------------
 
 	// ---OAuth Endpoint
-	oauthClient := authing.NewOauthClient(clientID, appSecret, false)
-	// Enable debug info for graphql client, just comment it if you want to disable the debug info
-	oauthClient.Client.Log = func(s string) {
-		b := []byte(s)
-		pj, _ := prettyjson.Format(b)
-		fmt.Println(string(pj))
-	}
+	// oauthClient := authing.NewOauthClient(clientID, appSecret, false)
+	// // Enable debug info for graphql client, just comment it if you want to disable the debug info
+	// oauthClient.Client.Log = func(s string) {
+	// 	b := []byte(s)
+	// 	pj, _ := prettyjson.Format(b)
+	// 	fmt.Println(string(pj))
+	// }
 
 	// >>>>Graphql Query: Read OAuth List
-	readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
-		ClientID:   graphql.String(clientID),
-		DontGetURL: graphql.Boolean(false),
-	}
+	// readOauthListQueryParameter := authing.ReadOauthListQueryParameter{
+	// 	ClientID:   graphql.String(clientID),
+	// 	DontGetURL: graphql.Boolean(false),
+	// }
 
-	q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
-	if err != nil {
-		log.Println(">>>>Read OAuth List failed: " + err.Error())
-	} else {
-		printJSON(q)
-	}
+	// q, err := oauthClient.ReadOauthList(&readOauthListQueryParameter)
+	// if err != nil {
+	// 	log.Println(">>>>Read OAuth List failed: " + err.Error())
+	// } else {
+	// 	printJSON(q)
+	// }
 
 }
 
