@@ -176,6 +176,7 @@ type UserRegisterInput struct {
 // UserRegisterMutation user register mutation
 type UserRegisterMutation struct {
 	Register struct {
+		ID               graphql.String `graphql:"_id"`
 		Unionid          graphql.String
 		Email            graphql.String
 		Phone            graphql.String
